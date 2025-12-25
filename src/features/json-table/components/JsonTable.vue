@@ -85,12 +85,13 @@ const updateTable = () => {
   try {
     const parsed = JSON.parse(props.data)
     const transformed = transformToTableData(parsed)
-    
-    if (transformed) {
+
+    if (transformed && transformed.sections.length > 0) {
       tableData.value = transformed
+      const firstSection = transformed.sections[0];
       // Reset active section if current one doesn't exist in new data
-      if (!activeSectionId.value || !transformed.sections.find(s => s.id === activeSectionId.value)) {
-        activeSectionId.value = transformed.sections[0].id
+      if (firstSection && (!activeSectionId.value || !transformed.sections.find((s: any) => s.id === activeSectionId.value))) {
+        activeSectionId.value = firstSection.id
       }
       error.value = false
     } else {
