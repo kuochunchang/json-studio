@@ -1,0 +1,51 @@
+:root {
+  /* Zinc Color Palette (Tailwind-like) */
+  --zinc-50: #fafafa;
+  --zinc-100: #f4f4f5;
+  --zinc-200: #e4e4e7;
+  --zinc-300: #d4d4d8;
+  --zinc-400: #a1a1aa;
+  --zinc-500: #71717a;
+  --zinc-600: #52525b;
+  --zinc-700: #3f3f46;
+  --zinc-800: #27272a;
+  --zinc-900: #18181b;
+  --zinc-950: #09090b;
+
+  /* Accent Color (Teal/Emerald) */
+  --accent-400: #34d399;
+  --accent-500: #10b981;
+  --accent-600: #059669;
+
+  /* Semantic Colors */
+  --bg-app: var(--zinc-950);
+  --bg-panel: var(--zinc-900);
+  --bg-sidebar: var(--zinc-950);
+  --bg-input: var(--zinc-900);
+  --bg-active: var(--zinc-800);
+  --bg-hover: var(--zinc-800);
+
+  --border-subtle: var(--zinc-800);
+  --border-focus: var(--zinc-600);
+
+  --text-primary: var(--zinc-100);
+  --text-secondary: var(--zinc-400);
+  --text-muted: var(--zinc-500);
+
+  --primary: var(--accent-500);
+  --primary-hover: var(--accent-400);
+
+  /* Layout */
+  --header-height: 48px;
+  --sidebar-width: 260px;
+  --tab-height: 40px;
+}
+
+/* Light Theme (Future) */
+html.light {
+  --bg-app: var(--zinc-50);
+  --bg-panel: #ffffff;
+  --bg-sidebar: var(--zinc-100);
+  --text-primary: var(--zinc-900);
+  /* ... mapping for light mode */
+}
