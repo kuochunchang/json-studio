@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {
+  Clipboard,
   ClipboardPaste,
   FileCode2,
   Minimize2,
@@ -75,6 +76,28 @@ const handleMinify = () => {
   }
 }
 
+const handlePaste = async () => {
+  try {
+    const text = await navigator.clipboard.readText()
+    if (text && activeFile.value) {
+      activeFile.value.content = text
+      showToast('Pasted from clipboard', 'success')
+    }
+  } catch (err) {
+    showToast('Failed to paste: Browser permission denied', 'error')
+  }
+}
+
+const handleCopy = async () => {
+  if (!activeFile.value) return
+  try {
+    await navigator.clipboard.writeText(activeFile.value.content)
+    showToast('Copied to clipboard', 'success')
+  } catch (err) {
+    showToast('Failed to copy', 'error')
+  }
+}
+
 // Resizer functionality
 const startResize = (e: MouseEvent) => {
   isResizing.value = true
@@ -131,12 +154,12 @@ onUnmounted(() => {
       >
         <FileCode2 :size="14" class="tab-icon" />
         <span class="tab-name">{{ file.name }}</span>
-        <button class="tab-close" @click="handleCloseFile(file.id, $event)">
+        <button class="tab-close" data-tooltip="Close tab" @click="handleCloseFile(file.id, $event)">
           <X :size="12" />
         </button>
       </div>
       
-      <button class="new-tab-btn" @click="handleCreateFile">
+      <button class="new-tab-btn" data-tooltip="New scratchpad" @click="handleCreateFile">
         <Plus :size="16" />
       </button>
     </div>
@@ -163,13 +186,16 @@ onUnmounted(() => {
             </span>
           </div>
           <div class="toolbar-right">
-            <button class="icon-btn" title="Format" @click="formatJson">
+            <button class="icon-btn" data-tooltip="Format JSON" @click="formatJson">
               <Sparkles :size="16" />
             </button>
-            <button class="icon-btn" title="Minify" @click="handleMinify">
+            <button class="icon-btn" data-tooltip="Minify JSON" @click="handleMinify">
               <Minimize2 :size="16" />
             </button>
-            <button class="icon-btn" title="Paste">
+            <button class="icon-btn" data-tooltip="Copy to clipboard" @click="handleCopy">
+              <Clipboard :size="16" />
+            </button>
+            <button class="icon-btn" data-tooltip="Paste from clipboard" @click="handlePaste">
               <ClipboardPaste :size="16" />
             </button>
           </div>
